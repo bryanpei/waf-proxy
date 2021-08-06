@@ -1,0 +1,34 @@
+version: '1'
+services: 
+  nodeapi:
+    build:
+      context: nodejs/
+      dockerfile: Dockerfile
+    container_name: nodeapi
+    environment:
+      - EXPRESS_PORT=3000
+    volumes:
+      - nginx_conf:/etc/nginx/conf.d/
+
+  modsecurity-nginx:
+    build:
+      context: nginx/
+      dockerfile: Dockerfile
+    container_name: modsecurity-nginx
+    volumes: 
+      - nginx_conf:/etc/nginx/conf.d/
+    ports:
+      - 80:80
+      - 443:443
+  # modsecurity-nginx:
+  #   image: owasp/modsecurity-crs:v3.3.2-nginx
+  #   container_name: modsecurity-nginx
+  #   volumes: 
+  #     - nginx_conf:/etc/nginx/conf.d/
+  #     - ./nginx/waf-api_pei_dev.conf:/etc/nginx/conf.d/waf-api_pei_dev.conf
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  
+volumes: 
+  nginx_conf:
