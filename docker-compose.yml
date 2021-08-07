@@ -7,6 +7,7 @@ services:
     container_name: nodeapi
     environment:
       - EXPRESS_PORT=3000
+      - MONGO_URI=${MONGO_URI}
     volumes:
       - nginx_conf:/etc/nginx/conf.d/
 
