@@ -27,7 +27,7 @@ app.get('/add/', async (req, res) => {
   const { hostname } = req.query
   const host = await hosts.findOne({ hostname })
   if (host) {
-    if(utils.addNginxConf(host.hostname, host.origin, host.port) >= 0) {
+    if(utils.addNginxConf(host.hostname, host.origin) >= 0) {
       res.send({
         status: 0,
         msg: `Added ${hostname}.conf to cloud waf!`
